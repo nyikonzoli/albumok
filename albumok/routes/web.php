@@ -1,6 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AlbumAdminController;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\AlbumController;
+use App\Http\Controllers\RegisterController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +17,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [AlbumController::class, 'index'])->name('home');
+Route::get('admin/album', [AlbumAdminController::class, 'index'])->name('album-admin.index');
+Route::get('admin/album/create', [AlbumAdminController::class, 'create'])->name('album-admin.create');
+Route::post('admin/album', [AlbumAdminController::class, 'store'])->name('album-admin.store');
+Route::get('login', [AuthController::class, 'login'])->name('auth.login');
+Route::get('authenticate', [AuthController::class, 'authenticate'])->name('auth.authencticate');
+Route::get('register', [AuthController::class, 'create'])->name('auth.create');
+Route::post('register', [RegisterController::class, 'store'])->name('register.create');
